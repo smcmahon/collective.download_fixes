@@ -1,0 +1,17 @@
+collective.download_fixes Installation
+--------------------------------------
+
+To install collective.download_fixes using zc.buildout and the plone.recipe.zope2instance
+recipe to manage your project, you can do this:
+
+* Add ``collective.download_fixes`` to the list of eggs to install, e.g.:
+
+    [buildout]
+    ...
+    eggs =
+        ...
+        collective.download_fixes
+       
+* Re-run buildout, e.g. with:
+
+    $ ./bin/buildout
