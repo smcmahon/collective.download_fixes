@@ -20,8 +20,17 @@ use the -c option to specify an alternate configuration file.
 $Id$
 """
 
-import os, shutil, sys, tempfile, urllib2
+import os
+import shutil
+import sys
+import tempfile
 from optparse import OptionParser
+
+import zc.buildout.buildout
+
+import six.moves.urllib.error
+import six.moves.urllib.parse
+import six.moves.urllib.request
 
 tmpeggs = tempfile.mkdtemp()
 
@@ -62,12 +71,12 @@ try:
 except ImportError:
     ez = {}
     if USE_DISTRIBUTE:
-        exec urllib2.urlopen('http://python-distribute.org/distribute_setup.py'
-                         ).read() in ez
+        exec(six.moves.urllib.request.urlopen('http://python-distribute.org/distribute_setup.py'
+                         ).read(), ez)
         ez['use_setuptools'](to_dir=tmpeggs, download_delay=0, no_fake=True)
     else:
-        exec urllib2.urlopen('http://peak.telecommunity.com/dist/ez_setup.py'
-                             ).read() in ez
+        exec(six.moves.urllib.request.urlopen('http://peak.telecommunity.com/dist/ez_setup.py'
+                             ).read(), ez)
         ez['use_setuptools'](to_dir=tmpeggs, download_delay=0)
 
     if to_reload:
@@ -116,7 +125,6 @@ else:
 
 ws.add_entry(tmpeggs)
 ws.require('zc.buildout' + VERSION)
-import zc.buildout.buildout
 zc.buildout.buildout.main(args)
 shutil.rmtree(tmpeggs)
 ##############################################################################
@@ -141,8 +149,6 @@ use the -c option to specify an alternate configuration file.
 $Id$
 """
 
-import os, shutil, sys, tempfile, urllib2
-from optparse import OptionParser
 
 tmpeggs = tempfile.mkdtemp()
 
@@ -183,12 +189,12 @@ try:
 except ImportError:
     ez = {}
     if USE_DISTRIBUTE:
-        exec urllib2.urlopen('http://python-distribute.org/distribute_setup.py'
-                         ).read() in ez
+        exec(six.moves.urllib.request.urlopen('http://python-distribute.org/distribute_setup.py'
+                         ).read(), ez)
         ez['use_setuptools'](to_dir=tmpeggs, download_delay=0, no_fake=True)
     else:
-        exec urllib2.urlopen('http://peak.telecommunity.com/dist/ez_setup.py'
-                             ).read() in ez
+        exec(six.moves.urllib.request.urlopen('http://peak.telecommunity.com/dist/ez_setup.py'
+                             ).read(), ez)
         ez['use_setuptools'](to_dir=tmpeggs, download_delay=0)
 
     if to_reload:
@@ -237,6 +243,5 @@ else:
 
 ws.add_entry(tmpeggs)
 ws.require('zc.buildout' + VERSION)
-import zc.buildout.buildout
 zc.buildout.buildout.main(args)
 shutil.rmtree(tmpeggs)
